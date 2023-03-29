@@ -1,0 +1,66 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh;
+    width: 100%;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2rem;
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+    width: 100%;
+    background-color: gray;
+    text-align: center;
+}
+
+section h1 {
+    font-size: 1rem;
+}
+
+form {
+    margin: 2rem 0 ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input {
+ margin: 0 1rem;
+}
+
+table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+    width: 100%;
+    background-color: gray;
+    text-align: center;
+}
+
+footer h1 {
+    font-size: 1rem;
+}
