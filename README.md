@@ -4,7 +4,10 @@ This project was created to do a market list where you can add products, descrip
 
 You can check the skills applied on this such as HTML, the usage of nodes, CSS, javascript where we added class functionality, local storage as our data. Advanced javascript using getters and setters, the usage of events to create the list.
 
-This project is 90% finished but I will add more updates
+This project is 95% finished but I will add more updates
+
+New Update!!
+We can edit products
 
 Next Updates:
 
