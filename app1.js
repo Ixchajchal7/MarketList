@@ -77,12 +77,15 @@ class ListaDeProductos{
             <td>${producto.titulo}</td>
             <td>${producto.descripcion}</td>
             <td>${producto.precio}</td>
+            <td>${parseInt(producto.precio / JSON.parse(localStorage.getItem('dolar')).venta)}</td>
             <td id="${producto.id}" class="data-id-delete" style="color:red">X</td>
             <td id="E${producto.id}" class="data-id-edit" style="color:green">E</td>
         </tr>
             `
         })
     }
+
+
 
     updateLocalStorage(){
         const listaDeProductosString = JSON.stringify(this.lista)
@@ -105,8 +108,13 @@ class ListaDeProductos{
         this.lista.forEach(producto =>{
             total += producto.precio
         })
+        
         this.total = total
-        document.getElementById('total').textContent = total
+        let ventaDolar = JSON.parse(localStorage.getItem('dolar')).venta
+        console.log(ventaDolar);
+        document.getElementById('total').textContent = `
+        Total en pesos Argentinos = ${total} y Total en USD = ${total / ventaDolar}
+    `
     }
 
     buyAll(){
@@ -123,12 +131,30 @@ class ListaDeProductos{
     }
 }
 
+let dolar = ''
+if (localStorage.getItem('dolar') == null) {
+    let dolarVenta = 0
+    let dolarCompra = 0
+
+    dolar = {
+        compra: dolarCompra,
+        venta: dolarVenta
+    }
+    
+}else{
+    dolar = {
+        compra: JSON.parse(localStorage.getItem('dolar')).compra,
+        venta: JSON.parse(localStorage.getItem('dolar')).venta
+    }
+}
+
+localStorage.setItem('dolar', (JSON.stringify(dolar)))
+
 const listaDeProductos = new ListaDeProductos()
 listaDeProductos.initLocalStorage()
 
 document.getElementById('agregar').addEventListener('click', (e)=>{
     e.preventDefault()
-    console.log(e.target.value);
     const product = new Producto()
     product.setID()
 
@@ -167,3 +193,21 @@ document.getElementById('comprar').addEventListener('click', ()=>{
     listaDeProductos.buyAll()
     listaDeProductos.updateStates()
 })
+
+const actualizacionDeCotizacion = (dolar)=>{
+    document.getElementById('dolarHoy').textContent = `Dolar Blue 'Compra' = ${dolar[1]['casa'].compra} -- Dolar Blue 'Venta' = ${dolar[1]['casa'].venta}`
+
+    const dolarStorage = JSON.parse(localStorage.getItem('dolar'))
+    dolarStorage.compra = parseInt(dolar[1]['casa'].compra)
+    dolarStorage.venta = parseInt(dolar[1]['casa'].venta)
+
+    localStorage.setItem('dolar', JSON.stringify(dolarStorage))
+}
+
+const peticion = ()=>{
+    fetch(('https://www.dolarsi.com/api/api.php?type=valoresprincipales'))
+    .then(response => response.json())
+    .then(data => actualizacionDeCotizacion(data))
+}
+
+peticion()
