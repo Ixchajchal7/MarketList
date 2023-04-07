@@ -40,13 +40,24 @@ form {
 }
 
 input {
- margin: 0 1rem;
+    margin: 0 1rem;
 }
 
-table {
+#root {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+#table {
     display: flex;
     justify-content: center;
-    align-items: center;
+}
+
+th {
+    padding: 0.2rem;
 }
 
 footer {

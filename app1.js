@@ -56,6 +56,18 @@ class ListaDeProductos{
         return this.lista
     }
 
+    editProducto(value){
+        const producto = this.lista.find(e => e.id === value)
+        producto.precio = parseInt(prompt(`Ingresa el valor nuevo:`))
+
+        this.lista = this.lista.filter(e => e.id != value)
+
+        this.lista.push(producto)
+
+        this.updateStates()
+
+    }
+
     printProducts(){
         document.getElementById('tabla').innerHTML = ``
 
@@ -65,7 +77,8 @@ class ListaDeProductos{
             <td>${producto.titulo}</td>
             <td>${producto.descripcion}</td>
             <td>${producto.precio}</td>
-            <td id="${producto.id}" class="data-id">X</td>
+            <td id="${producto.id}" class="data-id-delete" style="color:red">X</td>
+            <td id="E${producto.id}" class="data-id-edit" style="color:green">E</td>
         </tr>
             `
         })
@@ -137,11 +150,18 @@ document.getElementById('agregar').addEventListener('click', (e)=>{
 })
 
 document.addEventListener('click', (e)=>{
-    if (e.target.className == 'data-id') {
+    if (e.target.className == 'data-id-delete') {
         listaDeProductos.deleteProducto(e.target.id)
         listaDeProductos.updateStates()
+    }else if(e.target.className == 'data-id-edit'){
+        const id = e.target.id
+        const idPlano = parseInt(id.slice(1))
+        listaDeProductos.editProducto(idPlano)
+
     }
 })
+
+
 
 document.getElementById('comprar').addEventListener('click', ()=>{
     listaDeProductos.buyAll()
